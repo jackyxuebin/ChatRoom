@@ -1,0 +1,17 @@
+doctype html
+
+html 
+	head
+		title= "Real time web chat"
+		script(src='/pvtChat.js')
+		script(src='/socket.io/socket.io.js')
+		script(src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js')
+	body
+		#wrapper(style='width: 900px; height: 600px; margin: auto')
+			#content(style='width: 500px; height: 130px; margin: 0 10px 20px 10px; border: solid 1px #999; overflow-y: scroll; float: left')
+			.controls(style='margin:0 10px 20px 10px; float:left')
+				input#from(type='hidden', value='#{from}')
+				input#to(type='hidden',value='#{to}')
+				input#field(style='width:350px;')
+				input#send(type='button', value='send')
+		
