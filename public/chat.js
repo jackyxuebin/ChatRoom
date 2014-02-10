@@ -10,7 +10,8 @@ window.onload = function(){
 	var message = [];
 	pvtMessage =[];
     pvtChatWindow =[];
-    socket = io.connect('http://182.19.242.103:3000');
+    //socket = io.connect('http://182.19.242.103:3000');
+	 socket = io.connect('http://192.168.0.18:3000');
 	var field = document.getElementById("field");
 	
 	var sendButton = document.getElementById("send");
