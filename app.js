@@ -41,7 +41,8 @@ io.sockets.on('connection',function(socket){
 	//console.log(io.sockets.manager.rooms);
 	//console.log(io.sockets.clients());
 	socket.on('auth',function(data){
-		socket.set('username',data.message);
+		//socket.set('username',data.message);
+		socket.username=data.message;
 		clients[data.message]=socket.id;
 		userlist.push(data.message);
 		socket.emit('message',{message: 'welcome to the chat'});
@@ -65,18 +66,20 @@ io.sockets.on('connection',function(socket){
 		var from=data.from;
 		var to=data.to;
 		var msg=data.message;
-		io.sockets.socket(clients[to]).emit('pvtchat',{from:from,to:to,message:msg});
+
+		io.sockets.connected[clients[to]].emit('pvtchat',{from:from,to:to,message:msg});
 		//io.sockets.socket(clients[from]).emit('pvtchat',{from:from,to:to,message:msg});
 		
 	});
 	socket.on('disconnect',function(){
-		socket.get('username',function(err,username){
+		//socket.get('username',function(err,username){
+			var username=socket.username;
 			var i=userlist.indexOf(username);
 			userlist.splice(i,1);
 			delete clients[username];
 			socket.broadcast.emit('message',{message: username+' has left the room'});
 			socket.broadcast.emit('userlist',{userlist:userlist});
-		});				
+		//});				
 		
 	});
 });
